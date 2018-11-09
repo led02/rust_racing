@@ -4,3 +4,4 @@ version = "0.1.0"
 authors = ["Merkaber <social.pio@posteo.jp>"]
 
 [dependencies]
+quicksilver = "*"
