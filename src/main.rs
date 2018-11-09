@@ -9,18 +9,26 @@ use quicksilver::{
 
 struct DrawGeometry;
 
+
 impl State for DrawGeometry {
     fn new() -> Result<DrawGeometry> {
         Ok(DrawGeometry)
     }
 
+    fn update(&mut self, _window: &mut Window) -> Result<()> {
+        updateSimon();
+        updateJan();
+        updateRieke();
+        Ok(())
+    }
+
     fn draw(&mut self, window: &mut Window) -> Result<()> {
         window.clear(Color::WHITE)?;
-        window.draw(&Rectangle::new((100, 100), (32, 32)), Col(Color::BLUE));
+        window.draw_ex(&Rectangle::new((100, 100), (32, 32)), Col(Color::BLUE), Transform::rotate(45), 0);
         window.draw_ex(&Rectangle::new((400, 300), (32, 32)), Col(Color::BLUE), Transform::rotate(45), 10);
-        window.draw(&Circle::new((400, 300), 100), Col(Color::GREEN));
+        window.draw(&Circle::new((400, 300), 100+self.radius), Col(Color::GREEN));
         window.draw_ex(
-            &Line::new((50, 80),(600, 450)).with_thickness(2.0),
+            &Line::new((50, 80), (600, 450)).with_thickness(2.0),
             Col(Color::RED),
             Transform::IDENTITY,
             5
@@ -31,12 +39,18 @@ impl State for DrawGeometry {
             Transform::rotate(45) * Transform::scale((0.5, 0.5)),
             0
         );
+
         Ok(())
     }
 }
 
 fn main() {
-    println!("Hello, world!");
-	//hallo git!
     run::<DrawGeometry>("Draw Geometry", Vector::new(800, 600), Settings::default());
 }
+
+fn updateSimon {}
+
+fn updateJan {}
+
+fn updateRieke {}
+
