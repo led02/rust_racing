@@ -26,7 +26,7 @@ impl State for DrawGeometry {
         window.clear(Color::WHITE)?;
         window.draw_ex(&Rectangle::new((100, 100), (32, 32)), Col(Color::BLUE), Transform::rotate(45), 0);
         window.draw_ex(&Rectangle::new((400, 300), (32, 32)), Col(Color::BLUE), Transform::rotate(45), 10);
-        window.draw(&Circle::new((400, 300), 100+self.radius), Col(Color::GREEN));
+        window.draw(&Circle::new((400, 300), 100), Col(Color::GREEN));
         window.draw_ex(
             &Line::new((50, 80), (600, 450)).with_thickness(2.0),
             Col(Color::RED),
@@ -48,9 +48,9 @@ fn main() {
     run::<DrawGeometry>("Draw Geometry", Vector::new(800, 600), Settings::default());
 }
 
-fn updateSimon {}
+fn updateSimon() {}
 
-fn updateJan {}
+fn updateJan() {}
 
-fn updateRieke {}
+fn updateRieke() {}
 
