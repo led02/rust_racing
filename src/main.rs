@@ -26,24 +26,13 @@ impl State for DrawGeometry {
 	if (self.radius > 300){
 		self.radius = 1;
 	};
-	
+
+	updateSimon();
+        updateJan();
+        updateRieke();
+
 	Ok(())
    }
-//=======
-    fn update(&mut self, _window: &mut Window) -> Result<()> {
-        updateSimon();
-        updateJan();
-        updateRieke();
-        Ok(())
-    }
-//>>>>>>> f91459e10aa8a7b58d87bb78ab0329054c744104
-
-    fn update(&mut self, _window: &mut Window) -> Result<()> {
-        updateSimon();
-        updateJan();
-        updateRieke();
-        Ok(())
-    }
 
     fn draw(&mut self, window: &mut Window) -> Result<()> {
         window.clear(Color::WHITE)?;
@@ -83,6 +72,8 @@ fn main() {
 //>>>>>>> f91459e10aa8a7b58d87bb78ab0329054c744104
 }
 
+
+//"private" testbaustellen
 fn updateSimon() {}
 
 fn updateJan() {}
