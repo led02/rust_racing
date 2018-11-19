@@ -11,7 +11,7 @@ use quicksilver::{
     lifecycle::{Settings, State, Window, run},
 };
 
-struct DrawGeometry{
+struct Game{
 radius:u32,
 }
 
@@ -19,9 +19,9 @@ radius:u32,
 
 
 
-impl State for DrawGeometry {
-    fn new() -> Result<DrawGeometry> {
-        Ok(DrawGeometry{radius:1})
+impl State for Game {
+    fn new() -> Result<Game> {
+        Ok(Game{radius:1})
     }
 
 
@@ -66,10 +66,10 @@ fn main() {
 	//hallo git!
 	
 
-    		run::<DrawGeometry>("Draw Geometry", Vector::new(800, 600), Settings::default());
+    		run::<Game>("Draw Geometry", Vector::new(800, 600), Settings::default());
 	
 
-    run::<DrawGeometry>("Draw Geometry", Vector::new(800, 600), Settings::default());
+    
 
 }
 
