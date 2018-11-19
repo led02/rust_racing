@@ -7,18 +7,31 @@ use quicksilver::{
     lifecycle::{Settings, State, Window, run},
 };
 
-struct DrawGeometry;
+struct DrawGeometry{
+radius:u32,
+}
+
+
 
 impl State for DrawGeometry {
     fn new() -> Result<DrawGeometry> {
-        Ok(DrawGeometry)
+        Ok(DrawGeometry{radius:1})
     }
+
+   fn update(&mut self, _window: &mut Window) -> Result<()> {
+	self.radius = self.radius+1;
+	if (self.radius > 300){
+		self.radius = 1;
+	};
+	
+	Ok(())
+   }
 
     fn draw(&mut self, window: &mut Window) -> Result<()> {
         window.clear(Color::WHITE)?;
         window.draw(&Rectangle::new((100, 100), (32, 32)), Col(Color::BLUE));
         window.draw_ex(&Rectangle::new((400, 300), (32, 32)), Col(Color::BLUE), Transform::rotate(45), 10);
-        window.draw(&Circle::new((400, 300), 100), Col(Color::GREEN));
+        window.draw(&Circle::new((400, 300), 1+self.radius), Col(Color::GREEN));
         window.draw_ex(
             &Line::new((50, 80),(600, 450)).with_thickness(2.0),
             Col(Color::RED),
@@ -38,5 +51,8 @@ impl State for DrawGeometry {
 fn main() {
     println!("Hello, world!");
 	//hallo git!
-    run::<DrawGeometry>("Draw Geometry", Vector::new(800, 600), Settings::default());
+	
+
+    		run::<DrawGeometry>("Draw Geometry", Vector::new(800, 600), Settings::default());
+	
 }
