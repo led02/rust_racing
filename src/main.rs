@@ -1,76 +1,76 @@
 extern crate quicksilver;
 
+/**
+ * Import external modules
+ */
 mod simon;
 mod rieke;
 mod jan;
 
+/**
+ * Namespaces of different modules
+ */
 use quicksilver::{
     Result,
-    geom::{Circle, Line, Rectangle, Transform, Triangle, Vector},
-    graphics::{Background::Col, Color},
+    geom::{Circle, Line, Rectangle, Transform, Triangle, Vector, Shape},
+    graphics::{Background::Col, Color, View},
     lifecycle::{Settings, State, Window, run},
+    input::{Key}
 };
 
-struct Game{
-radius:u32,
+/**
+ * Struct for game state
+ */
+struct Game {
+    simon_update_struct: simon::SimonUpdateStruct,
+    rieke_update_struct: rieke::RiekeUpdateStruct,
+    jan_update_struct: jan::JanUpdateStruct
 }
 
-
-
-
-
+/**
+ * Game state for running, updating and event handling the main window
+ */
 impl State for Game {
+
+    /**
+     * Is called right after instantiating the new game state
+     * Sets default parameters
+     */
     fn new() -> Result<Game> {
-        Ok(Game{radius:1})
+        Ok(Game{
+            simon_update_struct: simon::SimonUpdateStruct {x_pos: 0, y_pos: 0},
+            rieke_update_struct: rieke::RiekeUpdateStruct {},
+            jan_update_struct: jan::JanUpdateStruct {}
+        })
     }
 
+    /**
+     * Updates the main window frequently
+     */
+    fn update(&mut self, _window: &mut Window) -> Result<()> {
 
-   fn update(&mut self, _window: &mut Window) -> Result<()> {
-	self.radius = self.radius+1;
-	if self.radius > 300{
-		self.radius = 1;
-	};
-
-	simon::update();
-	rieke::update();
-	jan::update();
+	simon::update(_window);
+	rieke::update(_window);
+	jan::update(_window);
 
 	Ok(())
    }
 
+    /**
+     * Draws components inside of the main window
+     */
     fn draw(&mut self, window: &mut Window) -> Result<()> {
         window.clear(Color::WHITE)?;
-        window.draw_ex(&Rectangle::new((100, 100), (32, 32)), Col(Color::BLUE), Transform::rotate(45), 0);
-        window.draw_ex(&Rectangle::new((400, 300), (32, 32)), Col(Color::BLUE), Transform::rotate(45), 10);
-        window.draw(&Circle::new((400, 300), 1+self.radius), Col(Color::GREEN));
-        window.draw_ex(
-            &Line::new((50, 80), (600, 450)).with_thickness(2.0),
-            Col(Color::RED),
-            Transform::IDENTITY,
-            5
-        );
-        window.draw_ex(
-            &Triangle::new((500, 50), (450, 100), (650, 150)),
-            Col(Color::RED),
-            Transform::rotate(45) * Transform::scale((0.5, 0.5)),
-            0
-        );
 
         Ok(())
     }
 }
 
+/**
+ * Main function which is called when starting the game
+ */
 fn main() {
-
-    println!("Hello, world!");
-	//hallo git!
-	
-
-    		run::<Game>("Draw Geometry", Vector::new(800, 600), Settings::default());
-	
-
-    
-
+    run::<Game>("Draw Geometry", Vector::new(800, 600), Settings::default());
 }
 
 
