@@ -14,6 +14,7 @@ radius:u32,
 
 
 
+
 impl State for DrawGeometry {
     fn new() -> Result<DrawGeometry> {
         Ok(DrawGeometry{radius:1})
@@ -36,6 +37,13 @@ impl State for DrawGeometry {
         Ok(())
     }
 >>>>>>> f91459e10aa8a7b58d87bb78ab0329054c744104
+
+    fn update(&mut self, _window: &mut Window) -> Result<()> {
+        updateSimon();
+        updateJan();
+        updateRieke();
+        Ok(())
+    }
 
     fn draw(&mut self, window: &mut Window) -> Result<()> {
         window.clear(Color::WHITE)?;
@@ -61,6 +69,7 @@ impl State for DrawGeometry {
 
 fn main() {
 <<<<<<< HEAD
+<<<<<<< HEAD
     println!("Hello, world!");
 	//hallo git!
 	
@@ -68,6 +77,8 @@ fn main() {
     		run::<DrawGeometry>("Draw Geometry", Vector::new(800, 600), Settings::default());
 	
 =======
+=======
+>>>>>>> f91459e10aa8a7b58d87bb78ab0329054c744104
     run::<DrawGeometry>("Draw Geometry", Vector::new(800, 600), Settings::default());
 >>>>>>> f91459e10aa8a7b58d87bb78ab0329054c744104
 }
