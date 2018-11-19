@@ -1,5 +1,9 @@
 extern crate quicksilver;
 
+mod simon;
+mod rieke;
+mod jan;
+
 use quicksilver::{
     Result,
     geom::{Circle, Line, Rectangle, Transform, Triangle, Vector},
@@ -23,13 +27,13 @@ impl State for DrawGeometry {
 //<<<<<<< HEAD
    fn update(&mut self, _window: &mut Window) -> Result<()> {
 	self.radius = self.radius+1;
-	if (self.radius > 300){
+	if self.radius > 300{
 		self.radius = 1;
 	};
 
-	updateSimon();
-        updateJan();
-        updateRieke();
+	simon::update();
+	rieke::update();
+	jan::update();
 
 	Ok(())
    }
@@ -72,11 +76,4 @@ fn main() {
 //>>>>>>> f91459e10aa8a7b58d87bb78ab0329054c744104
 }
 
-
-//"private" testbaustellen
-fn updateSimon() {}
-
-fn updateJan() {}
-
-fn updateRieke() {}
 
