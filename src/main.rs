@@ -38,9 +38,9 @@ impl State for Game {
      */
     fn new() -> Result<Game> {
         Ok(Game{
-            simon_update_struct: simon::SimonUpdateStruct {x_pos: 0, y_pos: 0},
-            rieke_update_struct: rieke::RiekeUpdateStruct {},
-            jan_update_struct: jan::JanUpdateStruct {}
+            simon_update_struct: simon::init(),
+            rieke_update_struct: rieke::init(),
+            jan_update_struct: jan::init(),
         })
     }
 
