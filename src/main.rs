@@ -12,19 +12,20 @@ mod jan;
  */
 use quicksilver::{
     Result,
-    geom::{Circle, Line, Rectangle, Transform, Triangle, Vector, Shape},
-    graphics::{Background::Col, Color, View},
+    geom::{/*Circle, Line, Rectangle, Transform, Triangle,*/ Vector/*, Shape*/},
+    graphics::{/*Background::Col,*/ Color/*, View*/},
     lifecycle::{Settings, State, Window, run},
-    input::{Key}
+    //input::{Key}
 };
 
 /**
  * Struct for game state
  */
-struct Game {
-    simon_update_struct: simon::SimonUpdateStruct,
-    rieke_update_struct: rieke::RiekeUpdateStruct,
-    jan_update_struct: jan::JanUpdateStruct
+pub struct Game {
+    _simon_update_struct: simon::SimonUpdateStruct,
+    _rieke_update_struct: rieke::RiekeUpdateStruct,
+    _jan_update_struct: jan::JanUpdateStruct,
+
 }
 
 /**
@@ -38,20 +39,21 @@ impl State for Game {
      */
     fn new() -> Result<Game> {
         Ok(Game{
-            simon_update_struct: simon::init(),
-            rieke_update_struct: rieke::init(),
-            jan_update_struct: jan::init(),
+            _simon_update_struct: simon::init(),
+            _rieke_update_struct: rieke::init(),
+            _jan_update_struct: jan::init(),
+
         })
     }
 
     /**
-     * Updates the main window frequently
+     * Updates the game logic
      */
-    fn update(&mut self, _window: &mut Window) -> Result<()> {
+    fn update(&mut self, window: &mut Window) -> Result<()> {
 
-	simon::update(_window);
-	rieke::update(_window);
-	jan::update(_window);
+	simon::update(window, self);
+	rieke::update(window, self);
+	jan::update(window, self);
 
 	Ok(())
    }
@@ -62,6 +64,9 @@ impl State for Game {
     fn draw(&mut self, window: &mut Window) -> Result<()> {
         window.clear(Color::WHITE)?;
 
+        simon::draw(window, self);
+        rieke::draw(window, self);
+        jan::draw(window, self);
         Ok(())
     }
 }
