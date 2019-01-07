@@ -1,5 +1,7 @@
 extern crate quicksilver;
 
+
+
 use quicksilver::{
     Result,
     geom::{Circle, Rectangle, Transform},
@@ -10,10 +12,12 @@ use quicksilver::{
 
 use ::{Game};
 
+use mathhelper;
+
 //representing a single RacingCar
 pub struct RacingCarUpdateStruct {
     pub speed:f64,
-    pub direction:(f64, f64),
+    pub direction:f64,
     pub position:(u32,u32),
     pub steering: f64,
 
@@ -21,7 +25,7 @@ pub struct RacingCarUpdateStruct {
 
 pub fn init() ->RacingCarUpdateStruct{
     RacingCarUpdateStruct{  speed:0.0,
-                            direction:(0.0,0.0),
+                            direction:0.0,
                             position:(100,100),
                             steering:0.0,
                             }
@@ -42,8 +46,8 @@ impl State for RacingCarUpdateStruct {
         }
         if _window.keyboard()[Key::Right].is_down(){
 //      for testing purposes:
-            let (x,y) = self.position;
-            self.position = (x+1, y);
+//            let (x,y) = self.position;
+//            self.position = (x+1, y);
 ////////////////////////////////////
             self.steering = self.steering - 0.1;
             if self.steering < -1.0 {
@@ -62,10 +66,29 @@ impl State for RacingCarUpdateStruct {
                 self.speed = 10.0;
             }
         }
-         Ok(())
+
 
          //move/turn the car:
         //TODO continue here =)
+         //simple stupid version:
+
+         self.direction += self.steering/30.0;   //"spaceship controls"
+         if self.direction > 3.1415 {
+             self.direction = 3.1415;
+         }
+         else if self.direction < -3.1415{
+             self.direction = -3.1415;
+         }
+
+         let dir = mathhelper::angleToDirectionVector(self.direction);
+         let (dirx,diry) = dir;
+         let (posx, posy) = self.position;
+         let newx = dirx + posx as f64;
+         let newy = diry + posy as f64;
+
+         self.position = (newx as u32, newy as u32);
+
+         Ok(())
     }
 
      fn draw(&mut self, _window: &mut Window) -> Result<()>{
