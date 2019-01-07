@@ -6,6 +6,8 @@ extern crate quicksilver;
 mod simon;
 mod rieke;
 mod jan;
+mod input_manager;
+mod racing_car;
 
 /**
  * Namespaces of different modules
@@ -25,7 +27,8 @@ pub struct Game {
     _simon_update_struct: simon::SimonUpdateStruct,
     _rieke_update_struct: rieke::RiekeUpdateStruct,
     _jan_update_struct: jan::JanUpdateStruct,
-
+    _input_update_struct: input_manager::InputUpdateStruct,
+    _racingcar_update_struct: racing_car::RacingCarUpdateStruct,
 }
 
 /**
@@ -42,7 +45,8 @@ impl State for Game {
             _simon_update_struct: simon::init(),
             _rieke_update_struct: rieke::init(),
             _jan_update_struct: jan::init(),
-
+            _input_update_struct: input_manager::init(),
+            _racingcar_update_struct: racing_car::init(),
         })
     }
 
