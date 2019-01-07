@@ -1,62 +1,76 @@
 extern crate quicksilver;
 
 use quicksilver::{
-    lifecycle::{Window},
-    input::{Key}
+    Result,
+    geom::{Circle, Rectangle, Transform},
+    input::{Key},
+    graphics::{Background::Col, Color},
+    lifecycle::{Settings, State, Window, run},
 };
 
 use ::{Game};
 
+//representing a single RacingCar
 pub struct RacingCarUpdateStruct {
-    pub speed:double,
-    pub direction:(double, double),
-    pub position:(double,double),
-    pub steering: double,
+    pub speed:f64,
+    pub direction:(f64, f64),
+    pub position:(u32,u32),
+    pub steering: f64,
 
 }
 
 pub fn init() ->RacingCarUpdateStruct{
-    RacingCarUpdateStruct{  speed:0,
-                            direction:(0,0),
+    RacingCarUpdateStruct{  speed:0.0,
+                            direction:(0.0,0.0),
                             position:(100,100),
-                            steering:0,
+                            steering:0.0,
                             }
 }
+impl State for RacingCarUpdateStruct {
 
-pub fn update(_window: &mut Window, _game: &mut Game){
-    let car = &mut _game._racingcar_update_struct;
-    //TODO: move the below (partially) to input_manager.rs
-    if window.keyboard()[Key::Left].is_down() {
-        car.steering = car.steering +0.1;
-        if car.steering > 1{
-            car.steering = 1;
-        }
+    fn new() -> Result<RacingCarUpdateStruct> {
+        Ok(init())
     }
-    if window.keyboard()[Key::Right].is_down() {
-        car.steering = car.steering -0.1;
-        if car.steering < -1{
-            car.steering = -1;
+     fn update(&mut self, _window: &mut Window) -> Result<()> {
+        //let car = &mut _game._racingcar_update_struct;
+        //TODO: move the below (partially) to input_manager.rs(?)
+        if _window.keyboard()[Key::Left].is_down() {
+            self.steering = self.steering + 0.1;
+            if self.steering > 1.0 {
+                self.steering = 1.0;
+            }
         }
-    }
-    if window.keyboard()[Key::Down].is_down() {
-        car.speed = car.speed -0.1;
-        if car.speed < -10{
-            car.speed = -10;
+        if _window.keyboard()[Key::Right].is_down(){
+//      for testing purposes:
+            let (x,y) = self.position;
+            self.position = (x+1, y);
+////////////////////////////////////
+            self.steering = self.steering - 0.1;
+            if self.steering < -1.0 {
+                self.steering = -1.0;
+            }
         }
-    }
-    if window.keyboard()[Key::Up].is_down() {
-        car.speed = car.speed +0.1;
-        if car.speed > 10{
-            car.speed = 10;
+        if _window.keyboard()[Key::Down].is_down() {
+            self.speed = self.speed - 0.1;
+            if self.speed < -10.0 {
+                self.speed = -10.0;
+            }
         }
+        if _window.keyboard()[Key::Up].is_down() {
+            self.speed = self.speed + 0.1;
+            if self.speed > 10.0 {
+                self.speed = 10.0;
+            }
+        }
+         Ok(())
+
+         //move/turn the car:
+        //TODO continue here =)
     }
 
-    //move/turn the car:
-    //TODO continue here =)
-
+     fn draw(&mut self, _window: &mut Window) -> Result<()>{
+        let (x,y) = self.position;
+         _window.draw_ex(&Circle::new((x, y), 10), Col(Color::BLUE), Transform::rotate(45), 0);
+         Ok(())
+    }
 }
-
-pub fn draw(_window: &mut Window, _game: &mut Game) {
-
-}
-

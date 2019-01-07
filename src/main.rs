@@ -58,7 +58,7 @@ impl State for Game {
 	simon::update(window, self);
 	rieke::update(window, self);
 	jan::update(window, self);
-
+    self._racingcar_update_struct.update(window);
 	Ok(())
    }
 
@@ -71,6 +71,7 @@ impl State for Game {
         simon::draw(window, self);
         rieke::draw(window, self);
         jan::draw(window, self);
+        self._racingcar_update_struct.draw(window);
         Ok(())
     }
 }

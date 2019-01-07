@@ -38,13 +38,13 @@ pub fn init() ->JanUpdateStruct{
 pub fn update(_window: &mut Window, _game: &mut Game){
 
 
-    let mut buf = [1; 10];
+    /*let mut buf = [1; 10];
     let (amt, src) = _game._jan_update_struct.socket.recv_from(&mut buf).unwrap();
     let buf = &mut buf[..amt];
     buf.reverse();
     _game._jan_update_struct.socket.send_to(buf, &src);
     _game._jan_update_struct.test = _game._jan_update_struct.test + buf[0];
-
+    */
 }
 
 pub fn draw(_window: &mut Window, _game: &mut Game) {
