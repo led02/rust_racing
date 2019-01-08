@@ -66,7 +66,6 @@ impl State for Game {
      */
     fn draw(&mut self, window: &mut Window) -> Result<()> {
         window.clear(Color::WHITE)?;
-        window.draw(&image, Col(Color::BLUE));
 
         simon::draw(window, self);
         rieke::draw(window, self);
