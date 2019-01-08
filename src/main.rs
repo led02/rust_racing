@@ -8,7 +8,7 @@ mod rieke;
 mod jan;
 mod input_manager;
 mod racing_car;
-
+mod mathhelper;
 /**
  * Namespaces of different modules
  */
