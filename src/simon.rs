@@ -2,9 +2,10 @@ extern crate quicksilver;
 extern crate image;
 
 use quicksilver::{
-    geom::{Rectangle, Transform},
+    Result,
+    geom::{Rectangle, Transform, Shape, Vector},
     graphics::{Background::Col, Color, Image, Background::Img},
-    lifecycle::{Window, Asset}
+    lifecycle::{Window, Asset, State}
 };
 
 use ::{Game};
@@ -15,19 +16,28 @@ pub struct SimonUpdateStruct {
     asset: Asset<Image>
 }
 
-pub fn update(_window: &mut Window, _game: &mut Game) {
-
-}
-
 pub fn init() ->SimonUpdateStruct{
     SimonUpdateStruct{x_pos: 0, y_pos:0, asset: Asset::new(Image::load("./logo.png"))}
 }
 
-pub fn draw(_window: &mut Window, _game: &mut Game) {
-    _window.clear(Color::WHITE)?;
-    _game._simon_update_struct.asset.execute(|image| {
-        _window.draw(&image.area().with_center((400, 300)), Img(&image));
-        Ok(());
-    });
-    _window.draw_ex(&Rectangle::new((100, 100), (32, 32)), Col(Color::BLUE), Transform::rotate(45), 0);
+impl State for SimonUpdateStruct{
+
+    fn new() -> Result<SimonUpdateStruct> {
+        Ok(init())
+    }
+
+    fn update(&mut self, _window: &mut Window) -> Result<()> {
+        Ok(())
+    }
+
+    fn draw(&mut self, _window: &mut Window) -> Result<()> {
+        //_window.clear(Color::WHITE)?;
+         self.asset.execute(|image| {
+            _window.draw(&image.area().with_center((400, 300)), Img(&image));
+            Ok(())
+        })
+        //_window.draw_ex(&Rectangle::new((100, 100), (32, 32)), Col(Color::BLUE), Transform::rotate(45), 0);
+        //Ok(()); //Ok ok?
+    }
+
 }

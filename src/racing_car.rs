@@ -35,6 +35,7 @@ impl State for RacingCarUpdateStruct {
     fn new() -> Result<RacingCarUpdateStruct> {
         Ok(init())
     }
+
      fn update(&mut self, _window: &mut Window) -> Result<()> {
         //let car = &mut _game._racingcar_update_struct;
         //TODO: move the below (partially) to input_manager.rs(?)

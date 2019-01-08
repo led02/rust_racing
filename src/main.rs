@@ -54,7 +54,7 @@ impl State for Game {
      * Updates the game logic
      */
     fn update(&mut self, window: &mut Window) -> Result<()> {
-	simon::update(window, self);
+	self._simon_update_struct.update(window);
 	rieke::update(window, self);
 	jan::update(window, self);
     self._racingcar_update_struct.update(window);
@@ -67,7 +67,7 @@ impl State for Game {
     fn draw(&mut self, window: &mut Window) -> Result<()> {
         window.clear(Color::WHITE)?;
 
-        simon::draw(window, self);
+        self._simon_update_struct.draw(window);
         rieke::draw(window, self);
         jan::draw(window, self);
         self._racingcar_update_struct.draw(window);
