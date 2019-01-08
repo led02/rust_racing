@@ -5,3 +5,4 @@ authors = ["Merkaber <social.pio@posteo.jp>"]
 
 [dependencies]
 quicksilver = "*"
+image = "*"

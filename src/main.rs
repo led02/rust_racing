@@ -54,7 +54,6 @@ impl State for Game {
      * Updates the game logic
      */
     fn update(&mut self, window: &mut Window) -> Result<()> {
-
 	simon::update(window, self);
 	rieke::update(window, self);
 	jan::update(window, self);
@@ -67,6 +66,7 @@ impl State for Game {
      */
     fn draw(&mut self, window: &mut Window) -> Result<()> {
         window.clear(Color::WHITE)?;
+        window.draw(&image, Col(Color::BLUE));
 
         simon::draw(window, self);
         rieke::draw(window, self);

@@ -2,8 +2,8 @@ extern crate quicksilver;
 
 use quicksilver::{
     geom::{Rectangle, Transform},
-    graphics::{Background::Col, Color},
-    lifecycle::{Window}
+    graphics::{Background::Col, Color, Image, Background::Img},
+    lifecycle::{Window, Asset}
 };
 
 use ::{Game};
