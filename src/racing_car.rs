@@ -41,21 +41,25 @@ impl State for RacingCarUpdateStruct {
         //let car = &mut _game._racingcar_update_struct;
         //TODO: move the below (partially) to input_manager.rs(?)
         if _window.keyboard()[Key::Left].is_down() {
-            self.steering = self.steering + 0.1;
-            if self.steering > 1.0 {
-                self.steering = 1.0;
+            self.steering = self.steering + 0.01;
+            if self.steering > PI/4.0 {
+                self.steering = PI/4.0;
             }
         }
-        if _window.keyboard()[Key::Right].is_down(){
+        else if _window.keyboard()[Key::Right].is_down(){
 //      for testing purposes:
 //            let (x,y) = self.position;
 //            self.position = (x+1, y);
 ////////////////////////////////////
-            self.steering = self.steering - 0.1;
-            if self.steering < -1.0 {
-                self.steering = -1.0;
+            self.steering = self.steering - 0.01;
+            if self.steering < -PI/4.0 {
+                self.steering = -PI/4.0;
             }
         }
+        else {
+          self.steering = 0.0;
+        }
+        
         if _window.keyboard()[Key::Down].is_down() {
             self.speed = self.speed - 0.1;
             if self.speed < -10.0 {
@@ -74,8 +78,8 @@ impl State for RacingCarUpdateStruct {
         //TODO continue here =)
          //simple stupid version:
 
-         // adjust direction to -pi .. pi
-         self.direction = ((self.direction + PI) % (2.0 * PI)) - PI;
+         // adjust direction to -pi .. pi and add steering
+         self.direction = ((self.direction + PI) % (2.0 * PI)) - PI + self.steering;
 
          let dir = mathhelper::angleToDirectionVector(self.direction);
          let (dirx,diry) = dir;
@@ -90,7 +94,7 @@ impl State for RacingCarUpdateStruct {
 
      fn draw(&mut self, _window: &mut Window) -> Result<()>{
         let (x,y) = self.position;
-         let angle = self.direction * 180.0 / PI;
+         let angle = self.direction * 180.0 / PI + 180.0;
          _window.draw_ex(&Rectangle::new((x, y), (12, 7)), Col(Color::BLUE), Transform::rotate(angle as u32), 0);
          Ok(())
     }

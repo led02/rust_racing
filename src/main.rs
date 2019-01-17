@@ -79,7 +79,9 @@ impl State for Game {
  * Main function which is called when starting the game
  */
 fn main() {
-    run::<Game>("Draw Geometry", Vector::new(800, 600), Settings::default());
+    let mut settings = Settings::default();
+    settings.update_rate = 40.0;
+    run::<Game>("Draw Geometry", Vector::new(800, 600), settings);
 }
 
 
