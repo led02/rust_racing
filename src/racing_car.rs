@@ -13,6 +13,7 @@ use quicksilver::{
 use ::{Game};
 
 use mathhelper;
+use std::f64::consts::PI;
 
 //representing a single RacingCar
 pub struct RacingCarUpdateStruct {
@@ -73,19 +74,14 @@ impl State for RacingCarUpdateStruct {
         //TODO continue here =)
          //simple stupid version:
 
-         self.direction += self.steering/30.0;   //"spaceship controls"
-         if self.direction > 3.1415 {
-             self.direction = 3.1415;
-         }
-         else if self.direction < -3.1415{
-             self.direction = -3.1415;
-         }
+         // adjust direction to -pi .. pi
+         self.direction = ((self.direction + PI) % (2.0 * PI)) - PI;
 
          let dir = mathhelper::angleToDirectionVector(self.direction);
          let (dirx,diry) = dir;
          let (posx, posy) = self.position;
-         let newx = dirx + posx as f64;
-         let newy = diry + posy as f64;
+         let newx = dirx * self.speed + posx as f64;
+         let newy = diry * self.speed + posy as f64;
 
          self.position = (newx as u32, newy as u32);
 
@@ -94,7 +90,8 @@ impl State for RacingCarUpdateStruct {
 
      fn draw(&mut self, _window: &mut Window) -> Result<()>{
         let (x,y) = self.position;
-         _window.draw_ex(&Circle::new((x, y), 10), Col(Color::BLUE), Transform::rotate(45), 0);
+         let angle = self.direction * 180.0 / PI;
+         _window.draw_ex(&Rectangle::new((x, y), (12, 7)), Col(Color::BLUE), Transform::rotate(angle as u32), 0);
          Ok(())
     }
 }
